@@ -1,5 +1,15 @@
 namespace NextfitNutrition.Models;
 
+public enum TypeRepas
+{
+    PETIT_DEJEUNER,
+    DEJEUNER,
+    DINER,
+    COLLATION_MATIN,
+    COLLATION_APRES_MIDI,
+    COLLATION_SOIR
+}
+
 /// <summary>Un repas (petit-déjeuner, déjeuner, dîner, collation) dans un plan.</summary>
 public class Repas
 {
@@ -23,14 +33,4 @@ public class Repas
 
     public string? Preparation         { get; set; }
     public int     TempsPreparationMin { get; set; }
-
-    public enum TypeRepas
-    {
-        PETIT_DEJEUNER,
-        DEJEUNER,
-        DINER,
-        COLLATION_MATIN,
-        COLLATION_APRES_MIDI,
-        COLLATION_SOIR
-    }
 }

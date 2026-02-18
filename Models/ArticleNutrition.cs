@@ -1,5 +1,12 @@
 namespace NextfitNutrition.Models;
 
+public enum TypeContenu { ARTICLE, VIDEO, INFOGRAPHIE }
+public enum CategorieNutrition
+{
+    HYDRATATION, COMPLEMENTS_ALIMENTAIRES, FIBRES, GESTION_FRINGALES,
+    PROTEINES, GLUCIDES, LIPIDES, MICRONUTRIMENTS, AVANT_SPORT, APRES_SPORT
+}
+
 /// <summary>Article ou vidéo de conseil nutritionnel.</summary>
 public class ArticleNutrition
 {
@@ -21,11 +28,4 @@ public class ArticleNutrition
 
     /// <summary>true = réservé aux abonnés VIP ou Premium.</summary>
     public bool ReserveVip            { get; set; }
-
-    public enum TypeContenu      { ARTICLE, VIDEO, INFOGRAPHIE }
-    public enum CategorieNutrition
-    {
-        HYDRATATION, COMPLEMENTS_ALIMENTAIRES, FIBRES, GESTION_FRINGALES,
-        PROTEINES, GLUCIDES, LIPIDES, MICRONUTRIMENTS, AVANT_SPORT, APRES_SPORT
-    }
 }

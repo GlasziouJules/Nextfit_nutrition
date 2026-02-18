@@ -2,6 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NextfitNutrition.Models;
 
+public enum TypeAbonnement { STANDARD, PREMIUM, VIP }
+
 /// <summary>Représente un membre de la salle de sport NextFit.</summary>
 public class Utilisateur
 {
@@ -27,6 +29,4 @@ public class Utilisateur
     public QuestionnaireAlimentaire? Questionnaire { get; set; }
     public List<EntreeMacro>          EntreesMacros { get; set; } = new();
     public List<ConsultationDieteticien> Consultations { get; set; } = new();
-
-    public enum TypeAbonnement { STANDARD, PREMIUM, VIP }
 }
