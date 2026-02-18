@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>NextfitNutrition</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- EF Core InMemory : base de données en mémoire (même principe que H2 en Java) -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.2" />
+  </ItemGroup>
+
+</Project>
