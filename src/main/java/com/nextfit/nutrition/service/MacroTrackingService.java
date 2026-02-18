@@ -2,6 +2,7 @@ package com.nextfit.nutrition.service;
 
 import com.nextfit.nutrition.model.EntreeMacro;
 import com.nextfit.nutrition.model.QuestionnaireAlimentaire;
+import com.nextfit.nutrition.model.Utilisateur;
 import com.nextfit.nutrition.repository.EntreeMacroRepository;
 import com.nextfit.nutrition.repository.UtilisateurRepository;
 import com.nextfit.nutrition.repository.QuestionnaireRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -36,7 +38,7 @@ public class MacroTrackingService {
 
     /** Enregistre une nouvelle entrée de macro */
     public EntreeMacro enregistrerEntree(Long utilisateurId, EntreeMacro entree) {
-        var utilisateur = utilisateurRepo.findById(utilisateurId)
+        Utilisateur utilisateur = utilisateurRepo.findById(utilisateurId)
                 .orElseThrow(() -> new IllegalArgumentException("Utilisateur introuvable : " + utilisateurId));
         entree.setUtilisateur(utilisateur);
         if (entree.getDate() == null) {
@@ -83,18 +85,19 @@ public class MacroTrackingService {
                 questionnaire.map(QuestionnaireAlimentaire::getObjectif)
                         .orElse(QuestionnaireAlimentaire.ObjectifSportif.EQUILIBRE));
 
-        return Map.of(
-                "date",               date.toString(),
-                "caloriesConsommees", Math.round(calories * 10.0) / 10.0,
-                "caloriesCibles",     caloriesCibles,
-                "pourcentageCalories", caloriesCibles > 0 ? Math.min(100, (int)(calories / caloriesCibles * 100)) : 0,
-                "proteinesG",         Math.round(proteines * 10.0) / 10.0,
-                "proteinesCiblesG",   macrosCibles[0],
-                "glucidesG",          Math.round(glucides * 10.0) / 10.0,
-                "glucidesCiblesG",    macrosCibles[1],
-                "lipidesG",           Math.round(lipides * 10.0) / 10.0,
-                "lipidesCiblesG",     macrosCibles[2]
-        );
+        // Map.of() est limité à 10 entrées en Java 11 — utilisation de HashMap
+        Map<String, Object> result = new HashMap<>();
+        result.put("date",               date.toString());
+        result.put("caloriesConsommees", Math.round(calories * 10.0) / 10.0);
+        result.put("caloriesCibles",     caloriesCibles);
+        result.put("pourcentageCalories", caloriesCibles > 0 ? Math.min(100, (int)(calories / caloriesCibles * 100)) : 0);
+        result.put("proteinesG",         Math.round(proteines * 10.0) / 10.0);
+        result.put("proteinesCiblesG",   macrosCibles[0]);
+        result.put("glucidesG",          Math.round(glucides * 10.0) / 10.0);
+        result.put("glucidesCiblesG",    macrosCibles[1]);
+        result.put("lipidesG",           Math.round(lipides * 10.0) / 10.0);
+        result.put("lipidesCiblesG",     macrosCibles[2]);
+        return result;
     }
 
     /**
@@ -103,13 +106,17 @@ public class MacroTrackingService {
      */
     private double[] calculerMacrosCibles(int caloriesCibles,
                                            QuestionnaireAlimentaire.ObjectifSportif objectif) {
-        // Répartitions caloriiques : Protéines(4kcal/g), Glucides(4kcal/g), Lipides(9kcal/g)
+        // Répartitions caloriques : Protéines(4kcal/g), Glucides(4kcal/g), Lipides(9kcal/g)
         double ratioP, ratioG, ratioL;
         switch (objectif) {
-            case PRISE_DE_MASSE -> { ratioP = 0.30; ratioG = 0.50; ratioL = 0.20; }
-            case SECHE          -> { ratioP = 0.40; ratioG = 0.30; ratioL = 0.30; }
-            case PERTE_DE_POIDS -> { ratioP = 0.35; ratioG = 0.35; ratioL = 0.30; }
-            default             -> { ratioP = 0.25; ratioG = 0.50; ratioL = 0.25; }
+            case PRISE_DE_MASSE:
+                ratioP = 0.30; ratioG = 0.50; ratioL = 0.20; break;
+            case SECHE:
+                ratioP = 0.40; ratioG = 0.30; ratioL = 0.30; break;
+            case PERTE_DE_POIDS:
+                ratioP = 0.35; ratioG = 0.35; ratioL = 0.30; break;
+            default:
+                ratioP = 0.25; ratioG = 0.50; ratioL = 0.25; break;
         }
         return new double[]{
                 Math.round(caloriesCibles * ratioP / 4),

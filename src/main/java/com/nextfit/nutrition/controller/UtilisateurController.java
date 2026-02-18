@@ -2,7 +2,7 @@ package com.nextfit.nutrition.controller;
 
 import com.nextfit.nutrition.model.Utilisateur;
 import com.nextfit.nutrition.repository.UtilisateurRepository;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

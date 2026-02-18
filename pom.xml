@@ -8,19 +8,21 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.2</version>
+        <!-- Spring Boot 2.7.x : compatible Tomcat 9 (javax.* / Servlet 4.0) -->
+        <version>2.7.18</version>
         <relativePath/>
     </parent>
 
     <groupId>com.nextfit</groupId>
     <artifactId>nutrition</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <!-- WAR pour déploiement sur Tomcat 9 externe -->
+    <packaging>war</packaging>
     <name>NextFit Nutrition Module</name>
     <description>Module nutrition pour le site web de la salle de sport NextFit</description>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>11</java.version>
     </properties>
 
     <dependencies>
@@ -28,6 +30,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Tomcat embarqué marqué "provided" : on utilise Tomcat 9 externe -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Spring Data JPA -->
@@ -71,6 +80,8 @@
     </dependencies>
 
     <build>
+        <!-- Nom du fichier WAR déployé sur Tomcat -->
+        <finalName>nextfit-nutrition</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

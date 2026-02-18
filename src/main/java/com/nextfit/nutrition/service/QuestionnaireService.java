@@ -70,25 +70,26 @@ public class QuestionnaireService {
         // Métabolisme de base (formule Harris-Benedict, version homme par défaut)
         double metabolismeBase = 88.36 + (13.4 * poids) + (4.8 * taille) - (5.7 * age);
 
-        // Facteur activité physique
-        double facteurActivite = switch (questionnaire.getNiveauActivite()) {
-            case SEDENTAIRE            -> 1.2;
-            case LEGEREMENT_ACTIF      -> 1.375;
-            case MODEREMENT_ACTIF      -> 1.55;
-            case TRES_ACTIF            -> 1.725;
-            case EXTREMEMENT_ACTIF     -> 1.9;
-        };
+        // Facteur activité physique (switch Java 11 classique)
+        double facteurActivite;
+        switch (questionnaire.getNiveauActivite()) {
+            case SEDENTAIRE:        facteurActivite = 1.2;   break;
+            case LEGEREMENT_ACTIF:  facteurActivite = 1.375; break;
+            case TRES_ACTIF:        facteurActivite = 1.725; break;
+            case EXTREMEMENT_ACTIF: facteurActivite = 1.9;   break;
+            default:                facteurActivite = 1.55;  // MODEREMENT_ACTIF
+        }
 
         double caloriesEntretien = metabolismeBase * facteurActivite;
 
         // Ajustement selon l'objectif
-        double ajustement = switch (questionnaire.getObjectif()) {
-            case PRISE_DE_MASSE  -> +300;
-            case SECHE           -> -400;
-            case PERTE_DE_POIDS  -> -500;
-            case EQUILIBRE       -> 0;
-            case MAINTIEN        -> 0;
-        };
+        double ajustement;
+        switch (questionnaire.getObjectif()) {
+            case PRISE_DE_MASSE: ajustement = +300; break;
+            case SECHE:          ajustement = -400; break;
+            case PERTE_DE_POIDS: ajustement = -500; break;
+            default:             ajustement = 0;    // EQUILIBRE, MAINTIEN
+        }
 
         return (int) Math.round(caloriesEntretien + ajustement);
     }
