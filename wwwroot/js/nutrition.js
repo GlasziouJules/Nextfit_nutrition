@@ -8,6 +8,8 @@
 const UTILISATEUR_ID = 1;
 const API = '/api';
 
+let currentUser = null;
+
 /* =========================================================
    NAVIGATION PAR ONGLETS
    ========================================================= */
@@ -55,6 +57,47 @@ document.querySelectorAll('.radio-card').forEach(card => {
     });
 });
 
+// IMC en temps réel
+document.getElementById('tailleCm').addEventListener('input', calculerIMC);
+document.getElementById('poidsKg').addEventListener('input', calculerIMC);
+
+function calculerIMC() {
+    const taille = parseFloat(document.getElementById('tailleCm').value);
+    const poids  = parseFloat(document.getElementById('poidsKg').value);
+    const imcEl  = document.getElementById('imc-value');
+    const catEl  = document.getElementById('imc-categorie');
+
+    if (!taille || !poids || taille < 100 || poids < 30) {
+        imcEl.textContent = '—';
+        catEl.textContent = '';
+        catEl.className   = 'imc-categorie';
+        return;
+    }
+
+    const imc = poids / ((taille / 100) ** 2);
+    imcEl.textContent = imc.toFixed(1);
+
+    let cat, cls;
+    if      (imc < 18.5) { cat = 'Insuffisance';  cls = 'imc-maigre';   }
+    else if (imc < 25)   { cat = 'Poids normal';   cls = 'imc-normal';   }
+    else if (imc < 30)   { cat = 'Surpoids';       cls = 'imc-surpoids'; }
+    else                 { cat = 'Obésité';         cls = 'imc-obesite';  }
+
+    catEl.textContent = cat;
+    catEl.className   = `imc-categorie ${cls}`;
+}
+
+async function chargerProfilUtilisateur() {
+    try {
+        currentUser = await apiGet(`${API}/utilisateurs/${UTILISATEUR_ID}`);
+        if (currentUser.tailleCm) document.getElementById('tailleCm').value = currentUser.tailleCm;
+        if (currentUser.poidsKg)  document.getElementById('poidsKg').value  = currentUser.poidsKg;
+        calculerIMC();
+    } catch (err) {
+        console.warn('Profil non chargé :', err.message);
+    }
+}
+
 function changeNbRepas(delta) {
     const input = document.getElementById('nombreRepasParJour');
     const display = document.getElementById('nb-repas-display');
@@ -70,6 +113,22 @@ document.getElementById('form-questionnaire').addEventListener('submit', async e
     const objectifEl = document.querySelector('input[name="objectif"]:checked');
     if (!objectifEl) { showToast('Veuillez sélectionner un objectif.', 'error'); return; }
 
+    const taille = parseFloat(document.getElementById('tailleCm').value) || null;
+    const poids  = parseFloat(document.getElementById('poidsKg').value)  || null;
+
+    // 1. Mettre à jour taille/poids dans le profil
+    if (currentUser && (taille || poids)) {
+        try {
+            currentUser = await apiPut(`${API}/utilisateurs/${UTILISATEUR_ID}`, {
+                ...currentUser,
+                tailleCm: taille ?? currentUser.tailleCm,
+                poidsKg:  poids  ?? currentUser.poidsKg
+            });
+        } catch (err) {
+            console.warn('Mise à jour profil :', err.message);
+        }
+    }
+
     const payload = {
         allergiqueGluten:    document.getElementById('allergiqueGluten').checked,
         allergiqueLactose:   document.getElementById('allergiqueLactose').checked,
@@ -84,30 +143,77 @@ document.getElementById('form-questionnaire').addEventListener('submit', async e
     };
 
     try {
+        // 2. Sauvegarder le questionnaire (calcule les calories côté serveur)
         const data = await apiPost(`${API}/utilisateurs/${UTILISATEUR_ID}/questionnaire`, payload);
         afficherResultatCalories(data);
+
+        // 3. Récupérer le plan suggéré
+        try {
+            const plan = await apiGet(`${API}/plans-repas/suggestion?utilisateurId=${UTILISATEUR_ID}`);
+            afficherPlanSuggere(plan);
+        } catch {
+            afficherPlanSuggere(null);
+        }
+
         showToast('Questionnaire enregistré ! Votre plan a été personnalisé.', 'success');
     } catch (err) {
         showToast('Erreur lors de la sauvegarde : ' + err.message, 'error');
     }
 });
 
+function getMacrosRatios(objectif) {
+    const ratios = {
+        'PRISE_DE_MASSE': { p: 0.30, g: 0.50, l: 0.20 },
+        'SECHE':          { p: 0.40, g: 0.30, l: 0.30 },
+        'PERTE_DE_POIDS': { p: 0.35, g: 0.35, l: 0.30 }
+    };
+    return ratios[objectif] || { p: 0.25, g: 0.50, l: 0.25 };
+}
+
 function afficherResultatCalories(questionnaire) {
-    const cal = questionnaire.caloriesCiblesKcal || 2000;
+    const cal      = questionnaire.caloriesCiblesKcal || 2000;
+    const objectif = questionnaire.objectif || 'EQUILIBRE';
+    const r        = getMacrosRatios(objectif);
+
     document.getElementById('calories-value').textContent = cal.toLocaleString('fr-FR');
 
-    // Estimation des macros (simplifiée, identique au service Java)
-    const proteines = Math.round(cal * 0.25 / 4);
-    const glucides  = Math.round(cal * 0.50 / 4);
-    const lipides   = Math.round(cal * 0.25 / 9);
-
-    document.getElementById('proteines-cibles').textContent = proteines + ' g';
-    document.getElementById('glucides-cibles').textContent  = glucides  + ' g';
-    document.getElementById('lipides-cibles').textContent   = lipides   + ' g';
+    document.getElementById('proteines-cibles').textContent = Math.round(cal * r.p / 4) + ' g';
+    document.getElementById('glucides-cibles').textContent  = Math.round(cal * r.g / 4) + ' g';
+    document.getElementById('lipides-cibles').textContent   = Math.round(cal * r.l / 9) + ' g';
 
     const resultCard = document.getElementById('calories-result');
     resultCard.classList.remove('hidden');
     resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function afficherPlanSuggere(plan) {
+    const container = document.getElementById('plan-suggere');
+    const content   = document.getElementById('plan-suggere-content');
+
+    if (!plan) { container.classList.add('hidden'); return; }
+
+    const objectifLabel = {
+        'PRISE_DE_MASSE': '💪 Prise de masse',
+        'SECHE':          '🔥 Sèche',
+        'EQUILIBRE':      '⚖️ Équilibre',
+        'PERTE_DE_POIDS': '📉 Perte de poids',
+        'MAINTIEN':       '✅ Maintien'
+    }[plan.objectif] || plan.objectif;
+
+    content.innerHTML = `
+        <div class="plan-suggere-card">
+            <span class="plan-objectif-badge">${objectifLabel}</span>
+            <h4>${plan.nom}</h4>
+            <p>${plan.description || ''}</p>
+            <div class="plan-macros-mini">
+                <strong>${plan.caloriesTotalesKcal} kcal/jour</strong>
+                <span class="macro-tag p">P: ${plan.proteinesG}g</span>
+                <span class="macro-tag g">G: ${plan.glucidesG}g</span>
+                <span class="macro-tag l">L: ${plan.lipidesG}g</span>
+            </div>
+        </div>`;
+
+    container.classList.remove('hidden');
 }
 
 /* =========================================================
@@ -589,6 +695,19 @@ async function apiPost(url, body) {
     return res.json();
 }
 
+async function apiPut(url, body) {
+    const res = await fetch(url, {
+        method:  'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(body)
+    });
+    if (!res.ok) {
+        const err = await res.json().catch(() => ({ erreur: res.statusText }));
+        throw new Error(err.erreur || res.statusText);
+    }
+    return res.json();
+}
+
 async function apiDelete(url) {
     const res = await fetch(url, { method: 'DELETE' });
     if (!res.ok && res.status !== 204) {
@@ -616,6 +735,6 @@ function formatDate(dateStr) {
    ========================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Afficher la section questionnaire par défaut
     showSection('questionnaire');
+    chargerProfilUtilisateur();
 });
