@@ -1,26 +1,26 @@
 namespace NextfitNutrition.Models;
 
-public enum PreferenceAlimentaire
-{
-    OMNIVORE, VEGETARIEN, VEGAN, PESCETARIEN, FLEXITARIEN
-}
-
-public enum ObjectifSportif
-{
-    PRISE_DE_MASSE, SECHE, EQUILIBRE, PERTE_DE_POIDS, MAINTIEN
-}
-
-public enum NiveauActivite
-{
-    SEDENTAIRE, LEGEREMENT_ACTIF, MODEREMENT_ACTIF, TRES_ACTIF, EXTREMEMENT_ACTIF
-}
-
 /// <summary>
 /// Questionnaire alimentaire rempli par le membre pour personnaliser son plan nutritionnel.
 /// Regroupe allergies, préférences et objectifs sportifs.
 /// </summary>
 public class QuestionnaireAlimentaire
 {
+    public enum PreferenceAlimentaire
+    {
+        OMNIVORE, VEGETARIEN, VEGAN, PESCETARIEN, FLEXITARIEN
+    }
+
+    public enum ObjectifSportif
+    {
+        PRISE_DE_MASSE, SECHE, EQUILIBRE, PERTE_DE_POIDS, MAINTIEN
+    }
+
+    public enum NiveauActivite
+    {
+        SEDENTAIRE, LEGEREMENT_ACTIF, MODEREMENT_ACTIF, TRES_ACTIF, EXTREMEMENT_ACTIF
+    }
+
     public long Id { get; set; }
 
     public long UtilisateurId { get; set; }
