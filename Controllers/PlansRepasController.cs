@@ -27,7 +27,7 @@ public class PlansRepasController : ControllerBase
 
     /// <summary>GET /api/plans-repas/objectif/{objectif}</summary>
     [HttpGet("objectif/{objectif}")]
-    public async Task<IActionResult> ByObjectif(QuestionnaireAlimentaire.ObjectifSportif objectif)
+    public async Task<IActionResult> ByObjectif(ObjectifSportif objectif)
         => Ok(await _service.GetByObjectifAsync(objectif));
 
     /// <summary>GET /api/plans-repas/suggestion?utilisateurId=1</summary>

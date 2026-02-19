@@ -25,7 +25,7 @@ public class ConsultationService
         var utilisateur = await _ctx.Utilisateurs.FindAsync(utilisateurId)
             ?? throw new ArgumentException($"Utilisateur introuvable : {utilisateurId}");
 
-        bool estVip = utilisateur.TypeAbonnement == Utilisateur.TypeAbonnement.VIP;
+        bool estVip = utilisateur.TypeAbonnement == TypeAbonnement.VIP;
 
         var consultation = new ConsultationDieteticien
         {

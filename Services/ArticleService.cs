@@ -16,7 +16,7 @@ public class ArticleService
     {
         var utilisateur = await _ctx.Utilisateurs.FindAsync(utilisateurId);
         bool estVipOuPremium = utilisateur?.TypeAbonnement
-            is Utilisateur.TypeAbonnement.VIP or Utilisateur.TypeAbonnement.PREMIUM;
+            is TypeAbonnement.VIP or TypeAbonnement.PREMIUM;
 
         return estVipOuPremium
             ? await GetTousAsync()
@@ -37,13 +37,13 @@ public class ArticleService
     public async Task<ArticleNutrition?> GetByIdAsync(long id)
         => await _ctx.Articles.FindAsync(id);
 
-    public async Task<List<ArticleNutrition>> GetParCategorieAsync(ArticleNutrition.CategorieNutrition categorie)
+    public async Task<List<ArticleNutrition>> GetParCategorieAsync(CategorieNutrition categorie)
         => await _ctx.Articles
             .Where(a => a.Categorie == categorie)
             .OrderByDescending(a => a.DatePublication)
             .ToListAsync();
 
-    public async Task<List<ArticleNutrition>> GetParTypeAsync(ArticleNutrition.TypeContenu type)
+    public async Task<List<ArticleNutrition>> GetParTypeAsync(TypeContenu type)
         => await _ctx.Articles
             .Where(a => a.TypeContenu == type)
             .OrderByDescending(a => a.DatePublication)

@@ -34,11 +34,11 @@ public class ArticlesController : ControllerBase
 
     /// <summary>GET /api/articles/categorie/HYDRATATION</summary>
     [HttpGet("categorie/{categorie}")]
-    public async Task<IActionResult> ParCategorie(ArticleNutrition.CategorieNutrition categorie)
+    public async Task<IActionResult> ParCategorie(CategorieNutrition categorie)
         => Ok(await _service.GetParCategorieAsync(categorie));
 
     /// <summary>GET /api/articles/type/VIDEO</summary>
     [HttpGet("type/{type}")]
-    public async Task<IActionResult> ParType(ArticleNutrition.TypeContenu type)
+    public async Task<IActionResult> ParType(TypeContenu type)
         => Ok(await _service.GetParTypeAsync(type));
 }

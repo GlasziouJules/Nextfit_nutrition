@@ -8,8 +8,8 @@ public class PlanRepas
     public string Nom         { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
 
-    public QuestionnaireAlimentaire.ObjectifSportif       Objectif   { get; set; }
-    public QuestionnaireAlimentaire.PreferenceAlimentaire Preference { get; set; }
+    public ObjectifSportif       Objectif   { get; set; }
+    public PreferenceAlimentaire Preference { get; set; }
 
     /// <summary>Calories totales de la journée (kcal).</summary>
     public int CaloriesTotalesKcal { get; set; }

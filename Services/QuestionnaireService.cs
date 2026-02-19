@@ -52,18 +52,18 @@ public class QuestionnaireService
 
         double pal = q.NiveauActivite switch
         {
-            QuestionnaireAlimentaire.NiveauActivite.SEDENTAIRE        => 1.2,
-            QuestionnaireAlimentaire.NiveauActivite.LEGEREMENT_ACTIF  => 1.375,
-            QuestionnaireAlimentaire.NiveauActivite.TRES_ACTIF        => 1.725,
-            QuestionnaireAlimentaire.NiveauActivite.EXTREMEMENT_ACTIF => 1.9,
+            NiveauActivite.SEDENTAIRE        => 1.2,
+            NiveauActivite.LEGEREMENT_ACTIF  => 1.375,
+            NiveauActivite.TRES_ACTIF        => 1.725,
+            NiveauActivite.EXTREMEMENT_ACTIF => 1.9,
             _                                                          => 1.55 // MODEREMENT_ACTIF
         };
 
         double ajustement = q.Objectif switch
         {
-            QuestionnaireAlimentaire.ObjectifSportif.PRISE_DE_MASSE => +300,
-            QuestionnaireAlimentaire.ObjectifSportif.SECHE          => -400,
-            QuestionnaireAlimentaire.ObjectifSportif.PERTE_DE_POIDS => -500,
+            ObjectifSportif.PRISE_DE_MASSE => +300,
+            ObjectifSportif.SECHE          => -400,
+            ObjectifSportif.PERTE_DE_POIDS => -500,
             _                                                        => 0
         };
 

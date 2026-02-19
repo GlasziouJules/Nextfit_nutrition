@@ -60,7 +60,7 @@ public class MacroTrackingService
             .FirstOrDefaultAsync(q => q.UtilisateurId == utilisateurId);
 
         int caloriesCibles = questionnaire?.CaloriesCiblesKcal ?? 2000;
-        var objectif = questionnaire?.Objectif ?? QuestionnaireAlimentaire.ObjectifSportif.EQUILIBRE;
+        var objectif = questionnaire?.Objectif ?? ObjectifSportif.EQUILIBRE;
         var (p, g, l) = CalculerMacrosCibles(caloriesCibles, objectif);
 
         int pourcentage = caloriesCibles > 0
@@ -83,13 +83,13 @@ public class MacroTrackingService
 
     /// <summary>Cibles en grammes [proteines, glucides, lipides] selon l'objectif.</summary>
     private static (double p, double g, double l) CalculerMacrosCibles(
-        int calories, QuestionnaireAlimentaire.ObjectifSportif objectif)
+        int calories, ObjectifSportif objectif)
     {
         var (ratioP, ratioG, ratioL) = objectif switch
         {
-            QuestionnaireAlimentaire.ObjectifSportif.PRISE_DE_MASSE => (0.30, 0.50, 0.20),
-            QuestionnaireAlimentaire.ObjectifSportif.SECHE          => (0.40, 0.30, 0.30),
-            QuestionnaireAlimentaire.ObjectifSportif.PERTE_DE_POIDS => (0.35, 0.35, 0.30),
+            ObjectifSportif.PRISE_DE_MASSE => (0.30, 0.50, 0.20),
+            ObjectifSportif.SECHE          => (0.40, 0.30, 0.30),
+            ObjectifSportif.PERTE_DE_POIDS => (0.35, 0.35, 0.30),
             _                                                        => (0.25, 0.50, 0.25)
         };
         return (

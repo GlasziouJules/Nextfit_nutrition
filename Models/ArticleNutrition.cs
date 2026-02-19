@@ -1,16 +1,16 @@
 namespace NextfitNutrition.Models;
 
+public enum TypeContenu { ARTICLE, VIDEO, INFOGRAPHIE }
+
+public enum CategorieNutrition
+{
+    HYDRATATION, COMPLEMENTS_ALIMENTAIRES, FIBRES, GESTION_FRINGALES,
+    PROTEINES, GLUCIDES, LIPIDES, MICRONUTRIMENTS, AVANT_SPORT, APRES_SPORT
+}
+
 /// <summary>Article ou vidéo de conseil nutritionnel.</summary>
 public class ArticleNutrition
 {
-    public enum TypeContenu { ARTICLE, VIDEO, INFOGRAPHIE }
-
-    public enum CategorieNutrition
-    {
-        HYDRATATION, COMPLEMENTS_ALIMENTAIRES, FIBRES, GESTION_FRINGALES,
-        PROTEINES, GLUCIDES, LIPIDES, MICRONUTRIMENTS, AVANT_SPORT, APRES_SPORT
-    }
-
     public long Id { get; set; }
 
     public string  Titre              { get; set; } = string.Empty;

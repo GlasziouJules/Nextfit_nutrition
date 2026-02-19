@@ -17,7 +17,7 @@ public class PlanRepasService
     public async Task<PlanRepas?> GetByIdAsync(long id)
         => await _ctx.PlansRepas.Include(p => p.Repas).FirstOrDefaultAsync(p => p.Id == id);
 
-    public async Task<List<PlanRepas>> GetByObjectifAsync(QuestionnaireAlimentaire.ObjectifSportif objectif)
+    public async Task<List<PlanRepas>> GetByObjectifAsync(ObjectifSportif objectif)
         => await _ctx.PlansRepas.Include(p => p.Repas)
                                 .Where(p => p.Objectif == objectif)
                                 .ToListAsync();

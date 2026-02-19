@@ -13,7 +13,7 @@ public class EntreeMacro
     [Required] public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Today);
 
     public TimeOnly?       Heure     { get; set; }
-    public Repas.TypeRepas TypeRepas { get; set; }
+    public TypeRepas TypeRepas { get; set; }
 
     [Required] public string NomAliment { get; set; } = string.Empty;
 
