@@ -153,6 +153,11 @@
         text.textContent      = value.length > 0 ? levels[score].label : '';
     }
 
+    // Si déjà connecté, rediriger vers l'app
+    if (localStorage.getItem('nf_user')) {
+        window.location.href = '/index.html';
+    }
+
     async function handleConnexion(e) {
         e.preventDefault();
         const email    = document.getElementById('login-email').value;
@@ -164,9 +169,9 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, motDePasse: password })
             });
-            if (!res.ok) throw new Error('Identifiants incorrects');
             const data = await res.json();
-            if (data.token) localStorage.setItem('nf_token', data.token);
+            if (!res.ok) throw new Error(data.message || 'Identifiants incorrects');
+            localStorage.setItem('nf_user', JSON.stringify(data));
             window.location.href = '/index.html';
         } catch (err) {
             showAuthError(err.message);
@@ -192,9 +197,10 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prenom, nom, email, motDePasse: password })
             });
-            if (!res.ok) throw new Error('Erreur lors de la création du compte');
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || 'Erreur lors de la création du compte');
             switchTab('connexion');
-            showAuthSuccess('Compte créé ! Vous pouvez vous connecter.');
+            showAuthSuccess('Compte créé ! Connectez-vous avec vos identifiants.');
         } catch (err) {
             showAuthError(err.message);
         }

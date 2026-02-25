@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using NextfitNutrition.Models;
 
 namespace NextfitNutrition.Data;
@@ -22,6 +24,12 @@ public class DataInitializer
     // =================================================================
     // UTILISATEURS
     // =================================================================
+    private static string Hash(string password)
+    {
+        byte[] bytes = SHA256.HashData(Encoding.UTF8.GetBytes(password));
+        return Convert.ToHexString(bytes).ToLower();
+    }
+
     private async Task SeedUtilisateurs()
     {
         _ctx.Utilisateurs.AddRange(
@@ -29,6 +37,7 @@ public class DataInitializer
             {
                 Prenom = "Thomas", Nom = "Dupont",
                 Email = "thomas.dupont@nextfit.fr",
+                MotDePasseHash = Hash("thomas123"),
                 TailleCm = 180, PoidsKg = 82,
                 DateNaissance = new DateOnly(1995, 6, 15),
                 Abonnement = TypeAbonnement.VIP
@@ -37,6 +46,7 @@ public class DataInitializer
             {
                 Prenom = "Sarah", Nom = "Martin",
                 Email = "sarah.martin@nextfit.fr",
+                MotDePasseHash = Hash("sarah123"),
                 TailleCm = 165, PoidsKg = 62,
                 DateNaissance = new DateOnly(1999, 3, 22),
                 Abonnement = TypeAbonnement.PREMIUM

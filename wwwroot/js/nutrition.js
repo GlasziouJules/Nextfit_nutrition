@@ -1,14 +1,35 @@
 /**
  * NextFit — Module Nutrition
  * JavaScript principal : navigation, appels API, rendu dynamique.
- *
- * Utilisateur de démo : id = 1 (créé au démarrage par DataInitializer)
  */
 
-const UTILISATEUR_ID = 1;
 const API = '/api';
 
+// ---- Auth : vérification de session ----
+const _storedUser = localStorage.getItem('nf_user');
+if (!_storedUser) {
+    window.location.href = '/auth.html';
+}
+const SESSION_USER = JSON.parse(_storedUser || '{}');
+let UTILISATEUR_ID = SESSION_USER.id || 1;
+
 let currentUser = null;
+
+// ---- Initialisation navbar ----
+document.addEventListener('DOMContentLoaded', () => {
+    const nameEl  = document.getElementById('nav-username');
+    const badgeEl = document.getElementById('nav-badge');
+    if (nameEl)  nameEl.textContent  = SESSION_USER.prenom + ' ' + (SESSION_USER.nom?.[0] || '') + '.';
+    if (badgeEl && SESSION_USER.abonnement) {
+        badgeEl.textContent = SESSION_USER.abonnement;
+        badgeEl.style.display = 'inline';
+    }
+
+    document.getElementById('btn-logout')?.addEventListener('click', () => {
+        localStorage.removeItem('nf_user');
+        window.location.href = '/auth.html';
+    });
+});
 
 /* =========================================================
    NAVIGATION PAR ONGLETS
@@ -521,7 +542,8 @@ function renderArticles(articles) {
             <div class="article-thumb" style="padding:0;overflow:hidden;">
                 <img src="${imageCategorie[a.categorie] || defaultImg}"
                      alt="${a.titre}"
-                     style="width:100%;height:100%;object-fit:cover;display:block;">
+                     style="width:100%;height:100%;object-fit:cover;display:block;"
+                     onerror="this.style.display='none'">
             </div>
             <div class="article-card-body">
                 <div class="article-meta">

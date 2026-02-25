@@ -18,9 +18,11 @@ builder.Services.AddControllers().AddJsonOptions(opts =>
     opts.JsonSerializerOptions.WriteIndented = false;
 });
 
-// ---- Base de données InMemory (pas besoin d'installer SQL Server) ----
+// ---- Base de données SQLite persistante (fichier nextfit.db) ----
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                      ?? "Data Source=nextfit.db";
 builder.Services.AddDbContext<NutritionDbContext>(opt =>
-    opt.UseInMemoryDatabase("nextfit_nutrition"));
+    opt.UseSqlite(connectionString));
 
 // ---- Services métier ----
 builder.Services.AddScoped<QuestionnaireService>();
@@ -44,9 +46,11 @@ app.UseStaticFiles();
 
 app.MapControllers();
 
-// ---- Initialisation des données de démo ----
+// ---- Création du schéma SQLite + données de démo ----
 using (var scope = app.Services.CreateScope())
 {
+    var db = scope.ServiceProvider.GetRequiredService<NutritionDbContext>();
+    await db.Database.EnsureCreatedAsync();          // Crée le fichier nextfit.db si inexistant
     var seeder = scope.ServiceProvider.GetRequiredService<DataInitializer>();
     await seeder.SeedAsync();
 }

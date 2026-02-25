@@ -140,6 +140,23 @@ h1, h2, h3, h4, h5, h6 {
     color: rgba(255,255,255,0.85);
 }
 
+.btn-logout {
+    background: none;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+    font-size: 1rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+}
+.btn-logout:hover {
+    border-color: var(--lipide-color);
+    color: var(--lipide-color);
+}
+
 /* =========================================================
    HERO
    ========================================================= */
@@ -994,6 +1011,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .dietitian-avatar { font-size: 2.5rem; }
+.dietitian-avatar-fallback { font-size: 3rem; color: var(--accent); flex-shrink: 0; }
 
 .dietitian-avatar-img {
     width: 56px;

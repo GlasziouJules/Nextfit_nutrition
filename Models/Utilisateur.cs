@@ -25,6 +25,9 @@ public class Utilisateur
 
     public TypeAbonnement Abonnement { get; set; } = TypeAbonnement.STANDARD;
 
+    /// <summary>Hash SHA-256 du mot de passe (hex).</summary>
+    public string? MotDePasseHash { get; set; }
+
     // --- Navigation EF Core ---
     public QuestionnaireAlimentaire? Questionnaire { get; set; }
     public List<EntreeMacro>          EntreesMacros { get; set; } = new();

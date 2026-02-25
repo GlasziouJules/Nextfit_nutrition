@@ -28,8 +28,11 @@
         <li><a href="#consultation" class="nav-link" data-section="consultation">Diététicien</a></li>
     </ul>
     <div class="nav-user">
-        <span class="badge-vip">VIP</span>
-        <span class="user-name">Thomas D.</span>
+        <span class="badge-vip" id="nav-badge" style="display:none">VIP</span>
+        <span class="user-name" id="nav-username">—</span>
+        <button class="btn-logout" id="btn-logout" title="Se déconnecter">
+            <i class="ph ph-sign-out"></i>
+        </button>
     </div>
 </nav>
 
@@ -417,7 +420,8 @@
             <p>En tant que membre <strong>VIP</strong>, vos consultations sont <strong>incluses</strong> dans votre abonnement.</p>
             <div class="dietitian-profile">
                 <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=80&h=80&fit=crop&crop=face"
-                     alt="Dr. Marie Dupont" class="dietitian-avatar-img">
+                     alt="Dr. Marie Dupont" class="dietitian-avatar-img"
+                     onerror="this.outerHTML='<i class=\'ph ph-user-circle dietitian-avatar-fallback\'></i>'">
                 <div>
                     <strong>Dr. Marie Dupont</strong>
                     <span>Diététicienne agréée — Spécialiste sport & performance</span>
