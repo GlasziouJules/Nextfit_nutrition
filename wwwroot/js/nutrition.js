@@ -554,12 +554,8 @@ function renderArticles(articles) {
         const emoji = emojiCategorie[a.categorie] || '📰';
         return `
         <div class="article-card">
-            <div class="article-thumb" style="position:relative;">
-                <img src="${imageCategorie[a.categorie] || defaultImg}"
-                     alt="${a.titre}"
-                     style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;"
-                     onerror="this.remove()">
-                <span style="font-size:2.75rem;">${emoji}</span>
+            <div class="article-thumb">
+                <span>${emoji}</span>
             </div>
             <div class="article-card-body">
                 <div class="article-meta">
