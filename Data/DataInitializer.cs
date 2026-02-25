@@ -31,7 +31,7 @@ public class DataInitializer
                 Email = "thomas.dupont@nextfit.fr",
                 TailleCm = 180, PoidsKg = 82,
                 DateNaissance = new DateOnly(1995, 6, 15),
-                TypeAbonnement = TypeAbonnement.VIP
+                Abonnement = TypeAbonnement.VIP
             },
             new Utilisateur
             {
@@ -39,7 +39,7 @@ public class DataInitializer
                 Email = "sarah.martin@nextfit.fr",
                 TailleCm = 165, PoidsKg = 62,
                 DateNaissance = new DateOnly(1999, 3, 22),
-                TypeAbonnement = TypeAbonnement.PREMIUM
+                Abonnement = TypeAbonnement.PREMIUM
             }
         );
         await _ctx.SaveChangesAsync();
@@ -62,7 +62,7 @@ public class DataInitializer
             Repas = new List<Repas>
             {
                 new() {
-                    TypeRepas = TypeRepas.PETIT_DEJEUNER,
+                    Moment = TypeRepas.PETIT_DEJEUNER,
                     Nom = "Porridge protéiné aux fruits rouges",
                     Description = "Petit-déjeuner riche en glucides complexes et protéines.",
                     CaloriesKcal = 520, ProteinesG = 35, GlucidesG = 65, LipidesG = 12, FibresG = 8,
@@ -71,7 +71,7 @@ public class DataInitializer
                     TempsPreparationMin = 10
                 },
                 new() {
-                    TypeRepas = TypeRepas.COLLATION_MATIN,
+                    Moment = TypeRepas.COLLATION_MATIN,
                     Nom = "Yaourt grec + amandes",
                     Description = "Collation riche en protéines et bonnes graisses.",
                     CaloriesKcal = 280, ProteinesG = 22, GlucidesG = 18, LipidesG = 10,
@@ -79,7 +79,7 @@ public class DataInitializer
                     TempsPreparationMin = 2
                 },
                 new() {
-                    TypeRepas = TypeRepas.DEJEUNER,
+                    Moment = TypeRepas.DEJEUNER,
                     Nom = "Salade de quinoa, poulet grillé et légumes de saison",
                     Description = "Déjeuner complet avec protéines de qualité, glucides complexes et vitamines.",
                     CaloriesKcal = 680, ProteinesG = 55, GlucidesG = 70, LipidesG = 18, FibresG = 10,
@@ -88,7 +88,7 @@ public class DataInitializer
                     TempsPreparationMin = 20
                 },
                 new() {
-                    TypeRepas = TypeRepas.COLLATION_APRES_MIDI,
+                    Moment = TypeRepas.COLLATION_APRES_MIDI,
                     Nom = "Shake post-entraînement BCAA & banane",
                     Description = "Récupération rapide avec protéines et glucides simples après la séance.",
                     CaloriesKcal = 340, ProteinesG = 35, GlucidesG = 38, LipidesG = 4,
@@ -97,7 +97,7 @@ public class DataInitializer
                     TempsPreparationMin = 3
                 },
                 new() {
-                    TypeRepas = TypeRepas.DINER,
+                    Moment = TypeRepas.DINER,
                     Nom = "Filet de saumon, patate douce et brocolis vapeur",
                     Description = "Dîner équilibré riche en oméga-3, glucides complexes et fibres.",
                     CaloriesKcal = 620, ProteinesG = 48, GlucidesG = 55, LipidesG = 18, FibresG = 12,
@@ -120,7 +120,7 @@ public class DataInitializer
             Repas = new List<Repas>
             {
                 new() {
-                    TypeRepas = TypeRepas.PETIT_DEJEUNER,
+                    Moment = TypeRepas.PETIT_DEJEUNER,
                     Nom = "Œufs brouillés, épinards et tartine de seigle",
                     Description = "Petit-déjeuner protéiné à faible indice glycémique.",
                     CaloriesKcal = 380, ProteinesG = 32, GlucidesG = 28, LipidesG = 14,
@@ -128,7 +128,7 @@ public class DataInitializer
                     TempsPreparationMin = 10
                 },
                 new() {
-                    TypeRepas = TypeRepas.DEJEUNER,
+                    Moment = TypeRepas.DEJEUNER,
                     Nom = "Thon, légumineuses et crudités",
                     Description = "Déjeuner pauvre en graisses, riche en fibres et protéines maigres.",
                     CaloriesKcal = 500, ProteinesG = 52, GlucidesG = 40, LipidesG = 12,
@@ -136,7 +136,7 @@ public class DataInitializer
                     TempsPreparationMin = 10
                 },
                 new() {
-                    TypeRepas = TypeRepas.DINER,
+                    Moment = TypeRepas.DINER,
                     Nom = "Poulet vapeur, haricots verts et riz complet",
                     Description = "Dîner léger riche en protéines et fibres pour favoriser la récupération.",
                     CaloriesKcal = 520, ProteinesG = 55, GlucidesG = 45, LipidesG = 12,
@@ -158,7 +158,7 @@ public class DataInitializer
             Repas = new List<Repas>
             {
                 new() {
-                    TypeRepas = TypeRepas.PETIT_DEJEUNER,
+                    Moment = TypeRepas.PETIT_DEJEUNER,
                     Nom = "Bowl açaï énergétique",
                     Description = "Petit-déjeuner veggie coloré, riche en antioxydants et fibres.",
                     CaloriesKcal = 480, ProteinesG = 15, GlucidesG = 70, LipidesG = 16,
@@ -166,7 +166,7 @@ public class DataInitializer
                     TempsPreparationMin = 5
                 },
                 new() {
-                    TypeRepas = TypeRepas.DEJEUNER,
+                    Moment = TypeRepas.DEJEUNER,
                     Nom = "Curry de pois chiches, épinards et riz basmati",
                     Description = "Déjeuner végétarien complet avec protéines végétales et glucides complexes.",
                     CaloriesKcal = 620, ProteinesG = 28, GlucidesG = 95, LipidesG = 14,
@@ -174,7 +174,7 @@ public class DataInitializer
                     TempsPreparationMin = 25
                 },
                 new() {
-                    TypeRepas = TypeRepas.DINER,
+                    Moment = TypeRepas.DINER,
                     Nom = "Omelette aux légumes et salade verte",
                     Description = "Dîner léger et protéiné, facile à préparer.",
                     CaloriesKcal = 440, ProteinesG = 30, GlucidesG = 25, LipidesG = 24,
@@ -196,7 +196,7 @@ public class DataInitializer
             Repas = new List<Repas>
             {
                 new() {
-                    TypeRepas = TypeRepas.PETIT_DEJEUNER,
+                    Moment = TypeRepas.PETIT_DEJEUNER,
                     Nom = "Overnight oats protéinés (vegan)",
                     Description = "Avoine préparée la veille avec protéines végétales et fruits secs.",
                     CaloriesKcal = 540, ProteinesG = 32, GlucidesG = 72, LipidesG = 14,
@@ -205,7 +205,7 @@ public class DataInitializer
                     TempsPreparationMin = 5
                 },
                 new() {
-                    TypeRepas = TypeRepas.DEJEUNER,
+                    Moment = TypeRepas.DEJEUNER,
                     Nom = "Buddha bowl tempeh, quinoa et avocat",
                     Description = "Déjeuner vegan complet avec protéines fermentées, bonnes graisses et fibres.",
                     CaloriesKcal = 720, ProteinesG = 45, GlucidesG = 80, LipidesG = 28,
@@ -229,7 +229,7 @@ public class DataInitializer
             {
                 Titre = "L'hydratation : votre alliée performance #1",
                 Resume = "Découvrez pourquoi boire suffisamment d'eau est aussi important que votre entraînement.",
-                TypeContenu = TypeContenu.ARTICLE,
+                Format = TypeContenu.ARTICLE,
                 Categorie = CategorieNutrition.HYDRATATION,
                 Auteur = "Dr. Marie Dupont, Diététicienne agréée",
                 Contenu = "L'eau représente 60% de notre poids corporel. Une déshydratation de seulement 2% entraîne une baisse de performance de 10 à 20%. Buvez 500 ml à 1L d'eau par heure pendant l'entraînement.",
@@ -241,7 +241,7 @@ public class DataInitializer
             {
                 Titre = "Whey Myprotein vs BCAA Optimum Nutrition : que choisir ?",
                 Resume = "Guide comparatif pour choisir les meilleurs compléments selon vos objectifs sportifs.",
-                TypeContenu = TypeContenu.ARTICLE,
+                Format = TypeContenu.ARTICLE,
                 Categorie = CategorieNutrition.COMPLEMENTS_ALIMENTAIRES,
                 Auteur = "Coach Nutrition NextFit",
                 Contenu = "La whey protéine (Myprotein) est idéale post-entraînement. Les BCAA (Optimum Nutrition) sont utiles pendant l'effort pour limiter le catabolisme musculaire.",
@@ -253,7 +253,7 @@ public class DataInitializer
             {
                 Titre = "Les compléments alimentaires expliqués en 5 minutes",
                 Resume = "Vidéo récapitulative sur les principaux compléments : whey, créatine, BCAA, vitamines.",
-                TypeContenu = TypeContenu.VIDEO,
+                Format = TypeContenu.VIDEO,
                 Categorie = CategorieNutrition.COMPLEMENTS_ALIMENTAIRES,
                 Auteur = "NextFit TV",
                 DatePublication = new DateOnly(2024, 2, 20),
@@ -263,7 +263,7 @@ public class DataInitializer
             {
                 Titre = "Les fibres alimentaires : pourquoi et comment en manger plus ?",
                 Resume = "Les fibres sont essentielles pour la santé digestive, la satiété et la performance sportive.",
-                TypeContenu = TypeContenu.ARTICLE,
+                Format = TypeContenu.ARTICLE,
                 Categorie = CategorieNutrition.FIBRES,
                 Auteur = "Dr. Marie Dupont, Diététicienne agréée",
                 Contenu = "L'OMS recommande 25 à 35g de fibres par jour. Meilleures sources : légumineuses, graines de chia, avoine, amandes, légumes verts.",
@@ -275,7 +275,7 @@ public class DataInitializer
             {
                 Titre = "5 stratégies infaillibles pour gérer les fringales",
                 Resume = "Craquez-vous souvent pour des aliments sucrés ? Voici comment reprendre le contrôle.",
-                TypeContenu = TypeContenu.ARTICLE,
+                Format = TypeContenu.ARTICLE,
                 Categorie = CategorieNutrition.GESTION_FRINGALES,
                 Auteur = "Coach Nutrition NextFit",
                 Contenu = "1. Augmenter les protéines. 2. Manger toutes les 3-4h. 3. Boire un verre d'eau. 4. Avoir des collations saines. 5. Manger lentement.",
@@ -287,7 +287,7 @@ public class DataInitializer
             {
                 Titre = "Plan nutritionnel personnalisé : analyse complète sur 4 semaines",
                 Resume = "Programme exclusif VIP avec suivi hebdomadaire et ajustements selon vos résultats.",
-                TypeContenu = TypeContenu.ARTICLE,
+                Format = TypeContenu.ARTICLE,
                 Categorie = CategorieNutrition.PROTEINES,
                 Auteur = "Dr. Marie Dupont, Diététicienne agréée",
                 DatePublication = new DateOnly(2024, 3, 15),
@@ -297,7 +297,7 @@ public class DataInitializer
             {
                 Titre = "Que manger avant une séance de musculation ?",
                 Resume = "Le bon repas pré-entraînement peut faire toute la différence sur vos performances.",
-                TypeContenu = TypeContenu.ARTICLE,
+                Format = TypeContenu.ARTICLE,
                 Categorie = CategorieNutrition.AVANT_SPORT,
                 Auteur = "Coach Nutrition NextFit",
                 Contenu = "Le repas pré-entraînement doit être pris 1h30-2h avant. Il doit contenir des glucides complexes et des protéines.",

@@ -18,7 +18,7 @@ public class Repas
     public long      PlanRepasId { get; set; }
     public PlanRepas? PlanRepas  { get; set; }
 
-    public TypeRepas TypeRepas   { get; set; }
+    public TypeRepas Moment      { get; set; }
     public string    Nom         { get; set; } = string.Empty;
     public string    Description { get; set; } = string.Empty;
 

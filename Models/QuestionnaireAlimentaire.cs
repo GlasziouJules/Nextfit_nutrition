@@ -37,7 +37,7 @@ public class QuestionnaireAlimentaire
     // --- Préférences et objectifs ---
     public PreferenceAlimentaire Preference     { get; set; } = PreferenceAlimentaire.OMNIVORE;
     public ObjectifSportif       Objectif       { get; set; } = ObjectifSportif.EQUILIBRE;
-    public NiveauActivite        NiveauActivite { get; set; } = NiveauActivite.MODEREMENT_ACTIF;
+    public NiveauActivite        Niveau         { get; set; } = NiveauActivite.MODEREMENT_ACTIF;
 
     public int  NombreRepasParJour  { get; set; } = 3;
     public int? CaloriesCiblesKcal  { get; set; }

@@ -50,7 +50,7 @@ public class QuestionnaireService
         // Métabolisme de base (Harris-Benedict)
         double mb = 88.36 + (13.4 * poids) + (4.8 * taille) - (5.7 * age);
 
-        double pal = q.NiveauActivite switch
+        double pal = q.Niveau switch
         {
             NiveauActivite.SEDENTAIRE        => 1.2,
             NiveauActivite.LEGEREMENT_ACTIF  => 1.375,

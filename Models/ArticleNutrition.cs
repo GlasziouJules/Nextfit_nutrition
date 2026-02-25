@@ -16,7 +16,7 @@ public class ArticleNutrition
     public string  Titre              { get; set; } = string.Empty;
     public string  Resume             { get; set; } = string.Empty;
     public string? Contenu            { get; set; }
-    public TypeContenu    TypeContenu { get; set; }
+    public TypeContenu    Format      { get; set; }
     public CategorieNutrition Categorie { get; set; }
 
     public string? UrlVideo           { get; set; }

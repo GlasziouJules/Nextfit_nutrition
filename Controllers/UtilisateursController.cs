@@ -46,7 +46,7 @@ public class UtilisateursController : ControllerBase
         u.TailleCm        = modifications.TailleCm;
         u.PoidsKg         = modifications.PoidsKg;
         u.DateNaissance   = modifications.DateNaissance;
-        u.TypeAbonnement  = modifications.TypeAbonnement;
+        u.Abonnement      = modifications.Abonnement;
         await _ctx.SaveChangesAsync();
         return Ok(u);
     }

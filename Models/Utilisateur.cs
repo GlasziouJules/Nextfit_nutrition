@@ -23,7 +23,7 @@ public class Utilisateur
     /// <summary>Poids en kilogrammes.</summary>
     public double? PoidsKg { get; set; }
 
-    public TypeAbonnement TypeAbonnement { get; set; } = TypeAbonnement.STANDARD;
+    public TypeAbonnement Abonnement { get; set; } = TypeAbonnement.STANDARD;
 
     // --- Navigation EF Core ---
     public QuestionnaireAlimentaire? Questionnaire { get; set; }
