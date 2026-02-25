@@ -293,12 +293,12 @@ async function ouvrirPlanDetail(planId) {
 
 function renderPlanDetail(plan) {
     const repasIcons = {
-        'PETIT_DEJEUNER':        '🌅',
-        'DEJEUNER':              '☀️',
-        'DINER':                 '🌙',
-        'COLLATION_MATIN':       '🍎',
-        'COLLATION_APRES_MIDI':  '🍌',
-        'COLLATION_SOIR':        '🥛'
+        'PETIT_DEJEUNER':        '<i class="ph ph-sun-horizon"></i>',
+        'DEJEUNER':              '<i class="ph ph-sun"></i>',
+        'DINER':                 '<i class="ph ph-moon"></i>',
+        'COLLATION_MATIN':       '<i class="ph ph-apple"></i>',
+        'COLLATION_APRES_MIDI':  '<i class="ph ph-carrot"></i>',
+        'COLLATION_SOIR':        '<i class="ph ph-coffee"></i>'
     };
 
     const repasLabels = {
@@ -312,7 +312,7 @@ function renderPlanDetail(plan) {
 
     const repasHtml = (plan.repas || []).map(r => `
         <div class="repas-item">
-            <span class="repas-type-icon">${repasIcons[r.typeRepas] || '🍽️'}</span>
+            <span class="repas-type-icon">${repasIcons[r.typeRepas] || '<i class="ph ph-fork-knife"></i>'}</span>
             <div class="repas-info">
                 <h4>${repasLabels[r.typeRepas] || r.typeRepas} — ${r.nom}</h4>
                 <p>${r.description || ''}</p>
@@ -325,7 +325,7 @@ function renderPlanDetail(plan) {
                     <span class="macro-tag g">G: ${r.glucidesG}g</span>
                     <span class="macro-tag l">L: ${r.lipidesG}g</span>
                     <span>${r.caloriesKcal} kcal</span>
-                    ${r.tempsPreparationMin ? `<span>⏱ ${r.tempsPreparationMin} min</span>` : ''}
+                    ${r.tempsPreparationMin ? `<span><i class="ph ph-timer"></i> ${r.tempsPreparationMin} min</span>` : ''}
                 </div>
             </div>
         </div>`).join('');
@@ -419,14 +419,17 @@ function renderEntrees(entrees) {
     }
 
     const icons = {
-        'PETIT_DEJEUNER': '🌅', 'DEJEUNER': '☀️',
-        'DINER': '🌙', 'COLLATION_MATIN': '🍎',
-        'COLLATION_APRES_MIDI': '🍌', 'COLLATION_SOIR': '🥛'
+        'PETIT_DEJEUNER':       '<i class="ph ph-sun-horizon"></i>',
+        'DEJEUNER':             '<i class="ph ph-sun"></i>',
+        'DINER':                '<i class="ph ph-moon"></i>',
+        'COLLATION_MATIN':      '<i class="ph ph-apple"></i>',
+        'COLLATION_APRES_MIDI': '<i class="ph ph-carrot"></i>',
+        'COLLATION_SOIR':       '<i class="ph ph-coffee"></i>'
     };
 
     container.innerHTML = entrees.map(e => `
         <div class="entree-item">
-            <span class="entree-repas-icon">${icons[e.typeRepas] || '🍽️'}</span>
+            <span class="entree-repas-icon">${icons[e.typeRepas] || '<i class="ph ph-fork-knife"></i>'}</span>
             <div class="entree-info">
                 <strong>${e.nomAliment}</strong>
                 <span>${e.quantiteG}g — P:${e.proteinesG}g G:${e.glucidesG}g L:${e.lipidesG}g</span>
@@ -499,28 +502,31 @@ function renderArticles(articles) {
         return;
     }
 
-    const emojiCategorie = {
-        'HYDRATATION':              '💧',
-        'COMPLEMENTS_ALIMENTAIRES': '💊',
-        'FIBRES':                   '🥦',
-        'GESTION_FRINGALES':        '🍫',
-        'PROTEINES':                '🥩',
-        'GLUCIDES':                 '🍞',
-        'LIPIDES':                  '🥑',
-        'AVANT_SPORT':              '⚡',
-        'APRES_SPORT':              '🏆',
-        'MICRONUTRIMENTS':          '🔬'
+    const imageCategorie = {
+        'HYDRATATION':              'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=400&h=160&fit=crop',
+        'COMPLEMENTS_ALIMENTAIRES': 'https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?w=400&h=160&fit=crop',
+        'FIBRES':                   'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&h=160&fit=crop',
+        'GESTION_FRINGALES':        'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=400&h=160&fit=crop',
+        'PROTEINES':                'https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=400&h=160&fit=crop',
+        'GLUCIDES':                 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=160&fit=crop',
+        'LIPIDES':                  'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&h=160&fit=crop',
+        'AVANT_SPORT':              'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=160&fit=crop',
+        'APRES_SPORT':              'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=160&fit=crop',
+        'MICRONUTRIMENTS':          'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=160&fit=crop'
     };
+    const defaultImg = 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=160&fit=crop';
 
     grid.innerHTML = articles.map(a => `
         <div class="article-card">
-            <div class="article-thumb">
-                ${emojiCategorie[a.categorie] || '📚'}
+            <div class="article-thumb" style="padding:0;overflow:hidden;">
+                <img src="${imageCategorie[a.categorie] || defaultImg}"
+                     alt="${a.titre}"
+                     style="width:100%;height:100%;object-fit:cover;display:block;">
             </div>
             <div class="article-card-body">
                 <div class="article-meta">
                     <span class="badge-type ${(a.typeContenu || '').toLowerCase()}">
-                        ${a.typeContenu === 'VIDEO' ? '▶ Vidéo' : '📄 Article'}
+                        ${a.typeContenu === 'VIDEO' ? 'Vidéo' : 'Article'}
                     </span>
                     ${a.reserveVip ? '<span class="badge-vip-small">VIP</span>' : ''}
                     <span class="article-date">${formatDate(a.datePublication)}</span>

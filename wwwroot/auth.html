@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextFit — Connexion</title>
+    <link rel="stylesheet" href="/css/nutrition.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+</head>
+<body class="auth-body">
+
+<div class="auth-wrapper">
+
+    <!-- Logo -->
+    <div class="auth-logo">
+        <i class="ph ph-barbell"></i>
+        <span class="auth-logo-text">Next<strong>Fit</strong></span>
+        <span class="auth-logo-badge">Nutrition</span>
+    </div>
+
+    <!-- Card -->
+    <div class="auth-card">
+        <h1 class="auth-title">BIENVENUE SUR NEXTFIT</h1>
+        <p class="auth-subtitle">Connectez-vous pour accéder à votre espace nutrition personnalisé.</p>
+
+        <!-- Tabs -->
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="tab-connexion" onclick="switchTab('connexion')">CONNEXION</button>
+            <button class="auth-tab" id="tab-inscription" onclick="switchTab('inscription')">INSCRIPTION</button>
+        </div>
+
+        <!-- ===== FORMULAIRE CONNEXION ===== -->
+        <form class="auth-form active" id="form-connexion" onsubmit="handleConnexion(event)">
+
+            <div class="auth-input-group">
+                <i class="ph ph-envelope"></i>
+                <input type="email" class="form-input" id="login-email"
+                       placeholder="Adresse e-mail" required autocomplete="email">
+            </div>
+
+            <div class="auth-input-group">
+                <i class="ph ph-lock"></i>
+                <input type="password" class="form-input" id="login-password"
+                       placeholder="Mot de passe" required autocomplete="current-password">
+            </div>
+
+            <div class="forgot-link">
+                <a href="#">Mot de passe oublié ?</a>
+            </div>
+
+            <button type="submit" class="btn-auth">SE CONNECTER</button>
+
+            <div class="auth-footer-link">
+                Pas encore de compte ?
+                <a href="#" onclick="switchTab('inscription'); return false;">Créer un compte</a>
+            </div>
+
+        </form>
+
+        <!-- ===== FORMULAIRE INSCRIPTION ===== -->
+        <form class="auth-form" id="form-inscription" onsubmit="handleInscription(event)">
+
+            <div class="form-row two-cols" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+                <div class="auth-input-group">
+                    <i class="ph ph-user"></i>
+                    <input type="text" class="form-input" id="reg-prenom"
+                           placeholder="Prénom" required autocomplete="given-name">
+                </div>
+                <div class="auth-input-group">
+                    <i class="ph ph-user"></i>
+                    <input type="text" class="form-input" id="reg-nom"
+                           placeholder="Nom" required autocomplete="family-name">
+                </div>
+            </div>
+
+            <div class="auth-input-group">
+                <i class="ph ph-envelope"></i>
+                <input type="email" class="form-input" id="reg-email"
+                       placeholder="Adresse e-mail" required autocomplete="email">
+            </div>
+
+            <div class="auth-input-group">
+                <i class="ph ph-lock"></i>
+                <input type="password" class="form-input" id="reg-password"
+                       placeholder="Mot de passe" required autocomplete="new-password"
+                       oninput="checkStrength(this.value)">
+            </div>
+
+            <div class="strength-bar">
+                <div class="strength-fill" id="strength-fill"></div>
+            </div>
+            <span class="strength-text" id="strength-text"></span>
+
+            <div class="auth-input-group">
+                <i class="ph ph-lock-key"></i>
+                <input type="password" class="form-input" id="reg-confirm"
+                       placeholder="Confirmer le mot de passe" required autocomplete="new-password">
+            </div>
+
+            <label class="terms-check">
+                <input type="checkbox" id="terms" required>
+                J'accepte les <a href="#">conditions d'utilisation</a> et la <a href="#">politique de confidentialité</a>.
+            </label>
+
+            <button type="submit" class="btn-auth">CRÉER MON COMPTE</button>
+
+            <div class="auth-footer-link">
+                Déjà un compte ?
+                <a href="#" onclick="switchTab('connexion'); return false;">Se connecter</a>
+            </div>
+
+        </form>
+
+    </div>
+
+    <!-- Background decoration -->
+    <p style="text-align:center;margin-top:1.5rem;font-size:0.75rem;color:rgba(255,255,255,0.25);">
+        © 2024 NextFit — Tous droits réservés
+    </p>
+
+</div>
+
+<script>
+    function switchTab(tab) {
+        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.add('active');
+        document.getElementById('form-' + tab).classList.add('active');
+    }
+
+    function checkStrength(value) {
+        const fill = document.getElementById('strength-fill');
+        const text = document.getElementById('strength-text');
+        let score = 0;
+        if (value.length >= 8)  score++;
+        if (/[A-Z]/.test(value)) score++;
+        if (/[0-9]/.test(value)) score++;
+        if (/[^A-Za-z0-9]/.test(value)) score++;
+
+        const levels = [
+            { pct: '0%',   color: 'transparent', label: '' },
+            { pct: '25%',  color: '#f87171',      label: 'Faible' },
+            { pct: '50%',  color: '#fbbf24',      label: 'Moyen' },
+            { pct: '75%',  color: '#60a5fa',      label: 'Fort' },
+            { pct: '100%', color: '#34d399',      label: 'Très fort' },
+        ];
+        fill.style.width      = levels[score].pct;
+        fill.style.background = levels[score].color;
+        text.textContent      = value.length > 0 ? levels[score].label : '';
+    }
+
+    async function handleConnexion(e) {
+        e.preventDefault();
+        const email    = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, motDePasse: password })
+            });
+            if (!res.ok) throw new Error('Identifiants incorrects');
+            const data = await res.json();
+            if (data.token) localStorage.setItem('nf_token', data.token);
+            window.location.href = '/index.html';
+        } catch (err) {
+            showAuthError(err.message);
+        }
+    }
+
+    async function handleInscription(e) {
+        e.preventDefault();
+        const prenom   = document.getElementById('reg-prenom').value;
+        const nom      = document.getElementById('reg-nom').value;
+        const email    = document.getElementById('reg-email').value;
+        const password = document.getElementById('reg-password').value;
+        const confirm  = document.getElementById('reg-confirm').value;
+
+        if (password !== confirm) {
+            showAuthError('Les mots de passe ne correspondent pas.');
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prenom, nom, email, motDePasse: password })
+            });
+            if (!res.ok) throw new Error('Erreur lors de la création du compte');
+            switchTab('connexion');
+            showAuthSuccess('Compte créé ! Vous pouvez vous connecter.');
+        } catch (err) {
+            showAuthError(err.message);
+        }
+    }
+
+    function showAuthError(msg) {
+        showToast(msg, 'error');
+    }
+
+    function showAuthSuccess(msg) {
+        showToast(msg, 'success');
+    }
+
+    function showToast(msg, type = 'success') {
+        let toast = document.getElementById('auth-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'auth-toast';
+            toast.className = 'toast';
+            document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.className   = `toast ${type}`;
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 3500);
+    }
+</script>
+
+</body>
+</html>

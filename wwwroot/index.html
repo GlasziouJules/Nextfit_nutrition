@@ -8,13 +8,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
 </head>
 <body>
 
 <!-- ===== NAVIGATION ===== -->
 <nav class="navbar">
     <div class="navbar-brand">
-        <span class="logo-icon">💪</span>
+        <i class="ph ph-barbell logo-icon"></i>
         <span class="logo-text">Next<strong>Fit</strong></span>
         <span class="logo-sub">Nutrition</span>
     </div>
@@ -36,7 +38,7 @@
     <div class="hero-content">
         <h1>Nutrition <span class="gradient-text">Personnalisée</span></h1>
         <p>Atteignez vos objectifs grâce à un plan alimentaire adapté à votre corps et votre mode de vie.</p>
-        <a href="#questionnaire" class="btn btn-primary">Commencer mon bilan →</a>
+        <a href="#questionnaire" class="btn btn-primary">Commencer mon bilan</a>
     </div>
     <div class="hero-stats">
         <div class="stat-card">
@@ -60,7 +62,7 @@
     <!-- ===== SECTION 1 : QUESTIONNAIRE ===== -->
     <section id="questionnaire" class="section active">
         <div class="section-header">
-            <span class="section-icon">📋</span>
+            <i class="ph ph-clipboard-text section-icon"></i>
             <div>
                 <h2>Questionnaire Alimentaire</h2>
                 <p>Personnalisez votre programme en nous parlant de vos habitudes et objectifs.</p>
@@ -103,25 +105,25 @@
                 <div class="radio-grid">
                     <label class="radio-card selected">
                         <input type="radio" name="objectif" value="PRISE_DE_MASSE">
-                        <span class="radio-icon">💪</span>
+                        <i class="ph ph-barbell radio-icon"></i>
                         <span class="radio-title">Prise de masse</span>
                         <span class="radio-desc">Développer la musculature</span>
                     </label>
                     <label class="radio-card">
                         <input type="radio" name="objectif" value="SECHE">
-                        <span class="radio-icon">🔥</span>
+                        <i class="ph ph-fire radio-icon"></i>
                         <span class="radio-title">Sèche</span>
                         <span class="radio-desc">Perdre la masse grasse</span>
                     </label>
                     <label class="radio-card">
                         <input type="radio" name="objectif" value="EQUILIBRE">
-                        <span class="radio-icon">⚖️</span>
+                        <i class="ph ph-scales radio-icon"></i>
                         <span class="radio-title">Équilibre</span>
                         <span class="radio-desc">Mode de vie sain</span>
                     </label>
                     <label class="radio-card">
                         <input type="radio" name="objectif" value="PERTE_DE_POIDS">
-                        <span class="radio-icon">📉</span>
+                        <i class="ph ph-trend-down radio-icon"></i>
                         <span class="radio-title">Perte de poids</span>
                         <span class="radio-desc">Minceur progressive</span>
                     </label>
@@ -133,11 +135,11 @@
                 <label class="form-label">Votre régime alimentaire</label>
                 <div class="select-group">
                     <select id="preference" name="preference" class="form-select">
-                        <option value="OMNIVORE">🥩 Omnivore</option>
-                        <option value="VEGETARIEN">🥗 Végétarien</option>
-                        <option value="VEGAN">🌱 Vegan</option>
-                        <option value="PESCETARIEN">🐟 Pescétarien</option>
-                        <option value="FLEXITARIEN">🍽️ Flexitarien</option>
+                        <option value="OMNIVORE">Omnivore</option>
+                        <option value="VEGETARIEN">Végétarien</option>
+                        <option value="VEGAN">Vegan</option>
+                        <option value="PESCETARIEN">Pescétarien</option>
+                        <option value="FLEXITARIEN">Flexitarien</option>
                     </select>
                 </div>
             </div>
@@ -171,23 +173,23 @@
                 <div class="checkbox-grid">
                     <label class="checkbox-card">
                         <input type="checkbox" name="allergiqueGluten" id="allergiqueGluten">
-                        <span>🌾 Gluten</span>
+                        <span>Gluten</span>
                     </label>
                     <label class="checkbox-card">
                         <input type="checkbox" name="allergiqueLactose" id="allergiqueLactose">
-                        <span>🥛 Lactose</span>
+                        <span>Lactose</span>
                     </label>
                     <label class="checkbox-card">
                         <input type="checkbox" name="allergiqueNoix" id="allergiqueNoix">
-                        <span>🥜 Noix</span>
+                        <span>Noix</span>
                     </label>
                     <label class="checkbox-card">
                         <input type="checkbox" name="allergiqueOeufs" id="allergiqueOeufs">
-                        <span>🥚 Œufs</span>
+                        <span>Oeufs</span>
                     </label>
                     <label class="checkbox-card">
                         <input type="checkbox" name="allergiqueFruitsMer" id="allergiqueFruitsMer">
-                        <span>🦐 Fruits de mer</span>
+                        <span>Fruits de mer</span>
                     </label>
                 </div>
                 <input type="text" class="form-input mt-sm" id="autresAllergies"
@@ -196,7 +198,7 @@
 
             <div class="form-group full-width">
                 <button type="submit" class="btn btn-primary btn-full">
-                    Générer mon plan personnalisé →
+                    Générer mon plan personnalisé
                 </button>
             </div>
         </form>
@@ -228,7 +230,7 @@
             </div>
 
             <button class="btn btn-outline" onclick="showSection('plans')">
-                Voir mon plan repas →
+                Voir mon plan repas
             </button>
         </div>
     </section>
@@ -236,7 +238,7 @@
     <!-- ===== SECTION 2 : PLANS DE REPAS ===== -->
     <section id="plans" class="section hidden">
         <div class="section-header">
-            <span class="section-icon">🥗</span>
+            <i class="ph ph-fork-knife section-icon"></i>
             <div>
                 <h2>Plans de Repas Personnalisés</h2>
                 <p>Recettes équilibrées adaptées à vos objectifs et préférences.</p>
@@ -244,7 +246,6 @@
         </div>
 
         <div id="plans-container" class="plans-grid">
-            <!-- Rempli dynamiquement par JS -->
             <div class="loading-placeholder">Chargement des plans…</div>
         </div>
 
@@ -258,7 +259,7 @@
     <!-- ===== SECTION 3 : SUIVI DES MACROS ===== -->
     <section id="tracker" class="section hidden">
         <div class="section-header">
-            <span class="section-icon">📊</span>
+            <i class="ph ph-chart-bar section-icon"></i>
             <div>
                 <h2>Suivi des Macronutriments</h2>
                 <p>Enregistrez vos repas et suivez votre apport nutritionnel quotidien.</p>
@@ -327,10 +328,10 @@
                     </div>
                     <div class="form-row">
                         <select class="form-select" id="typeRepas-macro">
-                            <option value="PETIT_DEJEUNER">🌅 Petit-déjeuner</option>
-                            <option value="DEJEUNER">☀️ Déjeuner</option>
-                            <option value="COLLATION_APRES_MIDI">🍎 Collation</option>
-                            <option value="DINER">🌙 Dîner</option>
+                            <option value="PETIT_DEJEUNER">Petit-déjeuner</option>
+                            <option value="DEJEUNER">Déjeuner</option>
+                            <option value="COLLATION_APRES_MIDI">Collation</option>
+                            <option value="DINER">Dîner</option>
                         </select>
                     </div>
                     <div class="form-row two-cols">
@@ -360,7 +361,7 @@
                         </div>
                     </div>
                     <input type="text" class="form-input" id="notesMacro" placeholder="Notes (optionnel)">
-                    <button type="submit" class="btn btn-primary btn-full">Enregistrer +</button>
+                    <button type="submit" class="btn btn-primary btn-full">Enregistrer</button>
                 </form>
             </div>
         </div>
@@ -377,7 +378,7 @@
     <!-- ===== SECTION 4 : CONSEILS ===== -->
     <section id="conseils" class="section hidden">
         <div class="section-header">
-            <span class="section-icon">💡</span>
+            <i class="ph ph-newspaper section-icon"></i>
             <div>
                 <h2>Conseils Nutritionnels</h2>
                 <p>Articles et vidéos pour optimiser votre alimentation.</p>
@@ -389,10 +390,10 @@
             <button class="filter-btn active" onclick="filtrerArticles('tous')">Tous</button>
             <button class="filter-btn" onclick="filtrerArticles('ARTICLE')">Articles</button>
             <button class="filter-btn" onclick="filtrerArticles('VIDEO')">Vidéos</button>
-            <button class="filter-btn" onclick="filtrerCategorie('HYDRATATION')">💧 Hydratation</button>
-            <button class="filter-btn" onclick="filtrerCategorie('COMPLEMENTS_ALIMENTAIRES')">💊 Compléments</button>
-            <button class="filter-btn" onclick="filtrerCategorie('FIBRES')">🥦 Fibres</button>
-            <button class="filter-btn" onclick="filtrerCategorie('GESTION_FRINGALES')">🍫 Fringales</button>
+            <button class="filter-btn" onclick="filtrerCategorie('HYDRATATION')">Hydratation</button>
+            <button class="filter-btn" onclick="filtrerCategorie('COMPLEMENTS_ALIMENTAIRES')">Compléments</button>
+            <button class="filter-btn" onclick="filtrerCategorie('FIBRES')">Fibres</button>
+            <button class="filter-btn" onclick="filtrerCategorie('GESTION_FRINGALES')">Fringales</button>
         </div>
 
         <div id="articles-grid" class="articles-grid">
@@ -403,7 +404,7 @@
     <!-- ===== SECTION 5 : CONSULTATION DIETETICIEN ===== -->
     <section id="consultation" class="section hidden">
         <div class="section-header">
-            <span class="section-icon">👩‍⚕️</span>
+            <i class="ph ph-stethoscope section-icon"></i>
             <div>
                 <h2>Consultation Diététicienne</h2>
                 <p>Rendez-vous en ligne avec notre diététicienne agréée partenaire.</p>
@@ -415,11 +416,19 @@
             <div class="abonnement-badge vip">Abonnement VIP</div>
             <p>En tant que membre <strong>VIP</strong>, vos consultations sont <strong>incluses</strong> dans votre abonnement.</p>
             <div class="dietitian-profile">
-                <div class="dietitian-avatar">👩‍⚕️</div>
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=80&h=80&fit=crop&crop=face"
+                     alt="Dr. Marie Dupont" class="dietitian-avatar-img">
                 <div>
                     <strong>Dr. Marie Dupont</strong>
                     <span>Diététicienne agréée — Spécialiste sport & performance</span>
-                    <span class="rating">⭐ 4.9 / 5 (128 avis)</span>
+                    <span class="rating">
+                        <i class="ph-fill ph-star rating-star"></i>
+                        <i class="ph-fill ph-star rating-star"></i>
+                        <i class="ph-fill ph-star rating-star"></i>
+                        <i class="ph-fill ph-star rating-star"></i>
+                        <i class="ph-fill ph-star rating-star"></i>
+                        4.9 / 5 (128 avis)
+                    </span>
                 </div>
             </div>
         </div>
@@ -459,7 +468,7 @@
                     </div>
                     <div class="tarif-info">
                         <span class="tarif-label">Tarif :</span>
-                        <span class="tarif-value vip-gratuit">Gratuit (VIP) ✓</span>
+                        <span class="tarif-value vip-gratuit">Gratuit (VIP)</span>
                     </div>
                     <button type="submit" class="btn btn-primary btn-full">Confirmer la réservation</button>
                 </form>
@@ -469,7 +478,6 @@
             <div class="card">
                 <h3>Mes consultations</h3>
                 <div id="mes-consultations" class="consultations-list">
-                    <!-- Chargé dynamiquement -->
                     <div class="consultation-item confirmee">
                         <div class="consult-date">
                             <span class="consult-day">15</span>
@@ -478,7 +486,9 @@
                         <div class="consult-info">
                             <strong>Dr. Marie Dupont</strong>
                             <span>14:30 — 30 min</span>
-                            <a href="#" class="link-visio">🔗 Rejoindre la visio</a>
+                            <a href="#" class="link-visio">
+                                <i class="ph ph-video-camera"></i> Rejoindre la visio
+                            </a>
                         </div>
                         <span class="badge-statut confirmee">Confirmée</span>
                     </div>
