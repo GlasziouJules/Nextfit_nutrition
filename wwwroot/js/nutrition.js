@@ -537,13 +537,29 @@ function renderArticles(articles) {
     };
     const defaultImg = 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=160&fit=crop';
 
-    grid.innerHTML = articles.map(a => `
+    const emojiCategorie = {
+        'HYDRATATION':              '💧',
+        'COMPLEMENTS_ALIMENTAIRES': '💊',
+        'FIBRES':                   '🌿',
+        'GESTION_FRINGALES':        '🍎',
+        'PROTEINES':                '💪',
+        'GLUCIDES':                 '🌾',
+        'LIPIDES':                  '🥑',
+        'AVANT_SPORT':              '⚡',
+        'APRES_SPORT':              '🏃',
+        'MICRONUTRIMENTS':          '🌈'
+    };
+
+    grid.innerHTML = articles.map(a => {
+        const emoji = emojiCategorie[a.categorie] || '📰';
+        return `
         <div class="article-card">
-            <div class="article-thumb" style="padding:0;overflow:hidden;">
+            <div class="article-thumb" style="position:relative;">
                 <img src="${imageCategorie[a.categorie] || defaultImg}"
                      alt="${a.titre}"
-                     style="width:100%;height:100%;object-fit:cover;display:block;"
-                     onerror="this.style.display='none'">
+                     style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;"
+                     onerror="this.remove()">
+                <span style="font-size:2.75rem;">${emoji}</span>
             </div>
             <div class="article-card-body">
                 <div class="article-meta">
@@ -557,7 +573,8 @@ function renderArticles(articles) {
                 <p>${a.resume || ''}</p>
                 ${a.auteur ? `<small style="color:var(--text-muted)">Par ${a.auteur}</small>` : ''}
             </div>
-        </div>`).join('');
+        </div>`;
+    }).join('');
 }
 
 function filtrerArticles(type) {
